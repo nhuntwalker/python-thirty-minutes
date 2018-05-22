@@ -14,6 +14,10 @@
             - [2. Name the placeholders and associate data with those names](#2-name-the-placeholders-and-associate-data-with-those-names)
             - [3. Use Python 3.6's fancy f-string](#3-use-python-36s-fancy-f-string)
     - [Python in Files](#python-in-files)
+    - [The First Program - The Dice Roller](#the-first-program---the-dice-roller)
+    - [Making Decisions With Conditionals](#making-decisions-with-conditionals)
+    - [Recap](#recap)
+    - [Exercises](#exercises)
 
 Hey!
 You want to learn Python!
@@ -198,6 +202,7 @@ Hello, world!
 
 No special keywords necessary to assign values to variables like "var", "let", or "const".
 You don't even need to declare the type of value you're going to assign (although as of Python 3.6 you can if you really really want to).
+You just need a properly-formatted name, containing only letters a &rarr; z, A &rarr; Z, numbers 0 &rarr; 9, and underscores.
 
 Whenever you assign a string to a variable name, that variable name is now a reference to a copy of that string in memory.
 Once assigned, _**you cannot change that string!**_
@@ -443,3 +448,326 @@ Hello, world!
 
 Exhilirating!
 There's something special about things working exactly as you expect them to.
+
+Within a Python file we can encapsulate any logic that we want to have executed, then execute that logic with the `python` command.
+
+## The First Program - The Dice Roller
+
+OK so we can make Python files, great.
+Let's make a real program.
+
+The program we're making is the dice roller, and its job will be to simulate rolling dice.
+Right now, it'll be fairly straightforward: when the program runs it'll output the result of one rolled six-sided die.
+After that, the program will exit.
+We'll continue to build on this as we learn more, but for now let's just get something working.
+
+Create a Python file called `roll_dice.py`.
+When you're naming your Python files (and directories that hold Python files), you want to make all the names lowercase and separate words with underscores.
+You don't *have* to, but it makes it easier on you when you're looking for filenames later on.
+
+If we're being good boys and girls, at the top of `roll_dice.py` we'll include a stand-alone multi-line string that serves to describe what's being encompassed in the file.
+That string is a type of **doc string**, or "documentation string".
+
+Doc strings have saved my ass on many occasions, as they remind me of what I was trying to accomplish within a file, function, or class (we'll learn about those latter two in later chapters).
+It's extremely helpful for other people, and even future-you, to include docs about everything that you were doing or intend to do in a codebase.
+
+There's all kinds of documentation formatting you can adhere to if you'd like.
+I'll point you to [the official Style Guide for Python Code](https://www.python.org/dev/peps/pep-0008/), also known as PEP 8, for learning about that.
+In reality though, you can write your docs in whatever way suits your coding style.
+Accurate documentation describing what the file contains and how to use its contents is far better than none at all.
+
+```python
+"""Simulate rolling one six-sided die."""
+```
+
+A fair dice roll is always random, and with what we know about Python right now (hell, with what I know about Python in total) we can't write all of the logic that it would take to encompass randomness.
+
+Fortunately, we don't have to!
+This wheel has already been invented, so let's build on the back of someone else's work and use the [random](https://docs.python.org/3/library/random.html) library!
+
+`random` came installed with Python as a part of what's known as the **Python standard library**.
+In general, the Python standard library contains a bunch of useful tools that other people have written far better than you can write them.
+They've been (mostly) optimized and vetted, so there's no reason to not use them in lieu of writing that code yourself (unless you just really want to).
+
+To have access to code that exists in an installed library, we can use Python's `import` statement.
+It'll look something like `import <library name>`.
+When the Python interpreter executes that import statement, it'll look through all of the installed libraries in your environment for a name matching the one you provided.
+If it can't find one, it'll raise an error. Like so:
+
+```python
+>>> import flerg
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+ModuleNotFoundError: No module named 'flerg'
+```
+
+In `roll_dice.py`, import the `random` library.
+
+```python
+"""Simulate rolling one six-sided die."""
+import random
+```
+
+So, a dice roll can effectively be thought of as the random choice of either 1, 2, 3, 4, 5, or 6.
+These are all integers in Python, and the `random` library has a function that we can run that chooses from a range of random integers called `randint()`.
+If we want to see exactly how it works, we can open the Python prompt, import `random`, and use the `help` function to read its doc string.
+
+```python
+>>> import random
+>>> help(random.randint)
+```
+
+It'll clear the terminal window and show the documentation attached to the `randint` function.
+
+```
+Help on method randint in module random:
+
+randint(a, b) method of random.Random instance
+    Return random integer in range [a, b], including both end points.
+(END)
+```
+
+Hit `q` to quit that screen of text.
+
+From what the documentation says, all we'll need to do is provide two numbers to `randint`, and it'll spit out (or **return**) a random integer in the range from the first number to the second number.
+It's more or less random, so your results will vary.
+
+```python
+>>> random.randint(1, 6)
+6
+>>> random.randint(1, 6)
+4
+>>> random.randint(1, 6)
+6
+>>> random.randint(1, 6)
+2
+```
+
+Let's put this in `roll_dice.py`.
+
+While we could get away with just having the program print a number to the screen and have that be that, we're going to write code my way.
+My way is to make what the user has done as obvious as possible with good messaging, so let's make some good messages.
+
+How many die are the user rolling? One.
+
+How many sides does the die have? Six.
+
+What was the result? Some number that'll be populated by the result of `random.randint`.
+
+Let's write that code!
+
+```python
+"""Simulate rolling one six-sided die."""
+import random
+
+print("🎲 Rolling one six-sided die 🎲")
+result = f"You rolled a { random.randint(1, 6) }!"
+print(result)
+```
+
+Yeah, you can stick emojis in Python 3 strings.
+More about that another time, but go wild.
+
+When this code is executed, this is the result:
+
+```
+(ENV) $ python roll_dice.py
+🎲 Rolling one six-sided die 🎲
+You rolled a 6!
+```
+
+Congratulations, you've written your first Python program!
+
+## Making Decisions With Conditionals
+
+The little six-line program written above is totes adorbs, but I'm feeling the need to throw a little English on it.
+As I mentioned before, I'm heavily in favor of providing my users with big, obvious messages of what was done, or what's currently happening.
+As a part of that messaging philosophy, I'm gonna suggest that instead of just providing the user with the number, we give them a symbol that goes with the number.
+Need to reel in those visual learners.
+
+We can use text to make symbols of dice!
+For example, rolling a "3" might look like
+
+```
+ _______
+|     o |
+|   o   |
+| o     |
+ -------
+```
+
+This is called [ASCII art](https://en.wikipedia.org/wiki/ASCII_art) and isn't Python-specific.
+
+Aight so we can make these ASCII representations in text for all of our possible dice.
+How can we decide which one to display?
+The simplest thought process just involves a series of conditional decisions.
+If a "1" is rolled, show the illustration of the die with 1 showing on its face.
+If "2" then show the illustration for 2, etc. etc.
+
+This exact type of conditional flow is encapsulated in Python's **conditional statements**.
+There's 3 of them, though only one is absolutely necessary:
+
+- `if <condition>:` (required) - if condition is True, then do what follows
+- `elif <condition>:` - if the first condition wasn't true but this one is, then do what follows
+- `else:` - if none of the conditions are True, do what follows
+
+The `<condition>` next to the first two must in some way evaluate to `True` or `False`, Python's two **boolean values**.
+One way that we can evaluate to `True/False` is via comparisons between things.
+Python has a few **comparison operators** to work with that take values on either side
+
+- `A == B` - value A and value B equate to the same value. So `1 == 1` is True. `1 == 2` is False
+- `A != B` - value A and value B are **not** equal. So `1 != 2` is True. `1 != 1` is False
+- `A > B` - value A is **greater than** value B. `2 > 1` is True. `1 > 1` is False
+- `A < B` - value A is **less than** value B
+- `A >= B` - value A is **greater than OR equal to** value B. `2 >= 1` is True. `1 >= 1` is also True
+- `A <= B` - take a guess
+- `A is B` - the object A is the exact same object as B in memory. More on this another time.
+- `A is not B` - the object A is not the exact same objet as B.
+
+We can use these to make our conditional statements.
+I'm thinking it's going to look something like:
+
+```python
+roll_result = random.randint(1, 6)
+if roll_result == 1:
+    # do something
+elif roll_result == 2:
+    # do something
+elif roll_result == 3:
+    # do something
+elif roll_result == 4:
+    # do something
+elif roll_result == 5:
+    # do something
+else:
+    # do something
+```
+
+By the way, the symbol `#` makes whatever comes after it into a "comment", or inactive code.
+
+Why am I using `elif` instead of `if`?
+Well in this one particular instance it doesn't matter all that much.
+However, if all those `elif`s were instead `ifs`, then we could run into problems, as each condition would be checked instead of just one.
+
+Let me show an example of the difference.
+Let's consider the case where we have a number and we print different things based on what range that number sits in.
+
+```python
+num = 1
+if num < 2:
+    print('This number is less than 2!')
+elif num < 5:
+    print('This number is less than 5!')
+```
+
+When this code is run, we'll see `"This number is less than 2!"` printed to the terminal because `1 < 2` evaluates to `True` and none of the other conditional statements run.
+
+If instead we had this setup:
+
+```python
+num = 1
+if num < 2:
+    print('This number is less than 2!')
+if num < 5:
+    print('This number is less than 5!')
+```
+
+Now instead of just asking one question at a time, we're asking two questions, one after the other.
+Is the number less than 2? Yes! Print the message.
+Is the number less than 5? Yes! Print this second message.
+
+The difference between `if-elif` and `if-if` chains isn't necessarily a problem, as each has its own useful domain.
+However, you do need to be aware of that difference, as it'll determine how your code executes when the time is right.
+
+If we incorporate the branching logic embodied by conditional statements into our `roll_dice.py` program, the file now looks like
+
+```python
+"""Simulate rolling one six-sided die."""
+import random
+
+print("🎲 Rolling one six-sided die 🎲")
+
+roll_result = random.randint(1, 6)
+if roll_result == 1:
+    dice_img = """
+ _______
+|       |
+|   o   |
+|       |
+ -------"""
+elif roll_result == 2:
+    dice_img = """
+ _______
+|     o |
+|       |
+| o     |
+ -------"""
+elif roll_result == 3:
+    dice_img = """
+ _______
+|     o |
+|   o   |
+| o     |
+ -------"""
+elif roll_result == 4:
+    dice_img = """
+ _______
+| o   o |
+|       |
+| o   o |
+ -------"""
+elif roll_result == 5:
+    dice_img = """
+ _______
+| o   o |
+|   o   |
+| o   o |
+ -------"""
+else:
+    dice_img = """
+ _______
+| o   o |
+| o   o |
+| o   o |
+ -------"""
+
+result = f"You rolled a { roll_result }!"
+result = result + dice_img
+print(result)
+```
+
+So what exactly is happening above?
+From top to bottom:
+
+- A doc string is written at the top of the Python file, describing what the file contains and what its use is
+- The `random` library is imported into the running Python interpreter
+- A print statement shows a message on the command line letter the user know that "dice" are being rolled
+- The actual roll (random choice) happens and the result is stored in the obviously-named`roll_result` variable
+- The value of `roll_result` is checked, and if any of those checks is `True` the appropriate dice image is assigned to the `dice_img` variable
+- The `roll_result` value is inserted into the string being assigned to `result`
+- The value previously assigned to `result` is concatenated (i.e. adding one string on the end of another) along with the string value of the `dice_img` variable, and the resulting combined string is assigned to the variable named `result`
+- The final output string is printed to the console
+
+Now THAT'S a program!
+
+## Recap
+
+Blah blah blah, bunch of stuff.
+What'd you actually do?
+
+- Opened and worked within the Python prompt
+- Learned about formatting Python strings
+- Learned about the built-in `print` and `help` functions
+- Created two Python files
+- Learned how to run a Python script with the `python` command
+- Learned about doc strings
+- Learned about importing code from installed libraries
+- Learned about Boolean operators
+- Used conditional statements to make decisions in your code
+
+That's...actually quite a bit.
+If you don't practice, you might lose it.
+Lucky for you, I've got some exercises you can do to help reinforce your skills.
+
+## Exercises
+
