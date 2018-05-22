@@ -71,3 +71,17 @@ If you install all of those into your global Python you're going to run into pro
 
 **Enter: virtual environments**
 
+A [virtual environment](https://docs.python.org/3/tutorial/venv.html) is a directory that has its own little Python installation and its own set of libraries that are isolated from the global system.
+It makes it so that when you're in the environment, you have access to all of the tools installed in that environment.
+When you're not in the environment, you're just using the global Python installed on your computer and whatever Python libraries are installed with it.
+
+Let's create a Python 3 virtual environment.
+First, make a directory for our Python projects, branching off from our home directory.
+
+```
+$ cd ~
+$ mkdir python-projects
+```
+
+Navigate to the `python-projects` directory that you just created.
+Create another 
