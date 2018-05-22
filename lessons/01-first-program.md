@@ -615,14 +615,19 @@ The `<condition>` next to the first two must in some way evaluate to `True` or `
 One way that we can evaluate to `True/False` is via comparisons between things.
 Python has a few **comparison operators** to work with that take values on either side
 
-- `A == B` - value A and value B equate to the same value. So `1 == 1` is True. `1 == 2` is False
-- `A != B` - value A and value B are **not** equal. So `1 != 2` is True. `1 != 1` is False
-- `A > B` - value A is **greater than** value B. `2 > 1` is True. `1 > 1` is False
+- `A == B` - value A and value B equate to the same value. So `1 == 1` is `True`. `1 == 2` is `False`
+- `A != B` - value A and value B are **not** equal. So `1 != 2` is `True`. `1 != 1` is `False`
+- `A > B` - value A is **greater than** value B. `2 > 1` is `True`. `1 > 1` is `False`
 - `A < B` - value A is **less than** value B
-- `A >= B` - value A is **greater than OR equal to** value B. `2 >= 1` is True. `1 >= 1` is also True
+- `A >= B` - value A is **greater than OR equal to** value B. `2 >= 1` is `True`. `1 >= 1` is also `True`
 - `A <= B` - take a guess
 - `A is B` - the object A is the exact same object as B in memory. More on this another time.
-- `A is not B` - the object A is not the exact same objet as B.
+- `A is not B` - the object A is not the exact same object as B.
+
+You can even combine comparison statements to make more complex conditional statements using the `and` and `or` keywords along with some well-placed parentheses.
+
+- `(A == B) and (B < C)` - if A and B are the same value AND B is less than C, this evaluates to `True`
+- `(A == B) or (B < C)` - if A and B are the same value, this is True. If B is less than C, this is also True. If both conditions are True, then this is True. All this needs is one condition to pass.
 
 We can use these to make our conditional statements.
 I'm thinking it's going to look something like:
@@ -771,3 +776,31 @@ Lucky for you, I've got some exercises you can do to help reinforce your skills.
 
 ## Exercises
 
+Note: there are solutions to every exercise in the [exercises](../exercises) directory.
+
+Make sure to use a Python 3 virtual environment, but if you're going to be uploading your code to GitHub then **DO NOT COMMIT THE ENVIRONMENT DIRECTORY (ENV)!**
+
+Don't worry if the code that you write isn't as elegant as possible.
+It doesn't have to be, as long as it fulfills the requirements.
+If you'd like some feedback on your code, fork this repository, work on a branch named `<your first name>-<exercise name>`, then submit a [pull request](https://github.com/nhuntwalker/python-thirty-minutes/pulls) to this repository from your fork.
+**I won't merge your work** but I will comment on the Pull Request as my time permits.
+
+1. **Interesting Numbers**: Write a program that will generate a random number between 0 and 250,000. Based on whatever number is generated, only one of the following statements should be printed to the console:
+    - `$<the number> is less than most people's household income in the United States! Most people make less than $60,000 per year! That's just a depressing figure.`
+    - `<the number> is less than the amount of hours in a year, which is 6,360`
+    - `<the number> is more than the median US income, but less than the population of Bridgetown, Barbados (around 110,000)`
+    - `<the number> is bigger than all the other thresholds! Damn that's large!`
+2. **Zodiac**: Write a program that will generate a random date and use that date to print the characteristics of the [Zodiac sign that it corresponds with](http://astrostyle.com/zodiac-sign-dates/). You can get the characterstics of each sign [here](http://nuclear.ucdavis.edu/~rpicha/personal/astrology/). The month should be a number between 1 (January) and 12 (December). The day of the month should be a number between 1 and 29, 30, or 31 (depending on the month). Example:
+    - date: `4/18`; output:
+    ```
+    4/18 is for Aries!
+
+    Adventurous and energetic
+    Pioneering and courageous
+    Enthusiastic and confident
+    Dynamic and quick-witted 
+
+    Selfish and quick-tempered
+    Impulsive and impatient
+    Foolhardy and daredevil
+    ```
