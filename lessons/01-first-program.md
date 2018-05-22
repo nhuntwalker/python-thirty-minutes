@@ -1,5 +1,11 @@
 # Writing your First Python Program
 
+**Topics**
+
+- [Writing your First Python Program](#writing-your-first-python-program)
+    - [Getting Started](#getting-started)
+    - [Isolating Your Python](#isolating-your-python)
+
 Hey!
 You want to learn Python!
 Awesome!
@@ -84,4 +90,50 @@ $ mkdir python-projects
 ```
 
 Navigate to the `python-projects` directory that you just created.
-Create another 
+Create another directory inside of `python-projects` where we'll build our first project: the dice roller!
+
+```
+$ cd python-projects
+$ mkdir dice-roller
+```
+
+Navigate to the dice roller, and here we'll create our first virtual environment.
+
+```
+$ cd dice-roller
+```
+
+To create a virtual environment in any directory, run the following command in that directory:
+
+```
+$ python3 -m venv ENV
+```
+
+What does this command do?
+`python3` is the command to invoke Python version 3 that you downloaded earlier with Homebrew.
+The `-m` flag says "what's about to follow is a Python module".
+We'll learn what a module is later.
+
+You're saying, effectively, hey Python 3, can you run this module called `venv`?
+When you run that module, give the directory that contains the virtual environment the name `"ENV"`.
+
+So you've now made a virtual environment, but it's not yet activated.
+In order for this thing to be useful, you have to activate it!
+Conveniently, the `ENV` directory contains a file called `activate` in `ENV/bin/activate`.
+It's the bash script whose job it is to isolate Python in this one environment.
+
+It would probably be a good idea to know how to activate the environment.
+If you're in the `dice-roller` directory, type:
+
+```
+$ source ENV/bin/activate
+(ENV) $
+```
+
+If you ever want to leave the environment, run the `deactivate` command that the environment gives you.
+Anyway, let's stay in the environment.
+
+Here's the great thing about being in a virtual environment: the regular `python` command now maps to Python 3!
+So we don't have to decide between different versions of Python.
+We'll always be in Python 3.
+
