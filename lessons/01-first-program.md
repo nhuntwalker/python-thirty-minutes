@@ -1,8 +1,8 @@
-# Writing your First Python Program
+# Chapter 1 - Writing your First Python Program
 
 **Topics**
 
-- [Writing your First Python Program](#writing-your-first-python-program)
+- [Chapter 1 - Writing your First Python Program](#chapter-1---writing-your-first-python-program)
     - [Getting Started](#getting-started)
     - [Isolating Your Python](#isolating-your-python)
     - [Geez, Let's Write some Python!](#geez--lets-write-some-python)
@@ -242,7 +242,7 @@ In versions of Python prior to Python 3.6, you could format a string using the `
 Here's how it works.
 
 ```python
->>> msg = "Hello, {}"
+>>> msg = "Hello, {}!"
 >>> print(msg.format('universe'))
 'Hello, universe!'
 ```
