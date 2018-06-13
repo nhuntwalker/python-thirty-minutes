@@ -375,6 +375,77 @@ There's a whole host of other things you can do with sets, but we can just leave
 
 #### Dictionaries
 
+Even moreso than lists, dictionaries (a.k.a. `dicts`) are probably the most versatile of Python's built-in objects.
+In other languages they're known as "object literals", "associate arrays", and "hash tables", but it's all the same.
+Here's the basics of the Python `dict`.
+
+You initialize an empty dictionary using either `dict()` or `{}`.
+To put values into a dictionary, you provide a "key" with which to access that value.
+Similar to how in lists you have an index that points to a value, in a dictionary you have a key that points to a value.
+
+```python
+>>> students = {}
+>>> students["first grade"] = ["Tonell", "Zalinia", "Aikira", "Elaya", "Zhaire"]
+>>> students["second grade"] = ["Dominique", "Hazell", "Antwon", "Dmitry"]
+>>> print(students)
+{
+  'first grade': ['Tonell', 'Zalinia', 'Aikira', 'Elaya', 'Zhaire'],
+  'second grade': ['Dominique', 'Hazell', 'Antwon', 'Dmitry']
+}
+```
+
+Although you can use any immutable value as a "key" for a dictionary, we tend to use strings.
+The values, in turn, can be anything.
+Like literally, anything.
+Anything that can be assigned to a variable in Python can be a value in a dictionary.
+In fact, that's how Python maintains your list of available variables; everything in Python ends up falling back in some way, shape, or form to a dictionary.
+
+Now that our dictionary has keys that map to values, we can access those values by using their unique, immutable key, just like we can access a value in a list by knowing its index.
+
+```python
+>>> print(students["first grade"])
+['Tonell', 'Zalinia', 'Aikira', 'Elaya', 'Zhaire']
+```
+
+You can assign values to an existing or new key, you can delete existing keys, you can do everything that you'd normally do with a variable assignment.
+
+As of Python 3.6, dictionaries are now ordered objects.
+What this means is that the order in which you declare keys is the order you'll always see them when you print the dictionary.
+However, even though dictionaries are ordered, you can't slice on them because **dictionaries aren't sequences**.
+
+If you want to know what keys a dictionary has available for you to use, you can check using the `.keys()` method.
+As of Python 3, the object you get back from `.keys()` will look like but not quite be a list of all of the keys present in your dictionary.
+You can get iterate through the object (we'll talk about this in a bit), but you can't actually access its data by index.
+You can similarly get key-value pairs by using the `.items()` method.
+
+```python
+>>> print(students.keys())
+dict_keys(['first grade', 'second grade'])
+>>> print(students.items())
+dict_items([('first grade', ['Tonell', 'Zalinia', 'Aikira', 'Elaya', 'Zhaire']), ('second grade', ['Dominique', 'Hazell', 'Antwon', 'Dmitry'])])
+```
+
+Is with every object we've discussed thus far, there's far more you can do with `dicts` than was shown here.
+However, we have a good foundation for these basic containers and we can start to do some interesting stuff with Python, as we'll see in the next section.
+
+### Python Container Miscellania
+
+This isn't even going to be that big of a subsection.
+Just some stuff I couldn't quite figure out where to place it.
+
+- Yes, Python `set`s and `dict`s both use curly braces. They're also both not sequences, and up until recently were both unordered. That being said, they act very differently. Remember, sets are containers containing only unique values, while dictionaries are key-value pairs.
+- Whether you add values to any of these containers or not, they all inherently keep track of their own lengths. You can check that length with the built-in `len()` function. It will _**always**_ return an integer value of 0 or more
+
+```python
+>>> len(students)
+2
+>>> len(students['first grade'])
+5
+>>> len(unique_letters)
+16
+```
+
+- Of all these containers, the only one that acts a little weird when you try to make an instance containing one value is the tuple. If you're making a tuple with one element only, leave a trailing comma before you close the parentheses. `my_var = (5,)` is a tuple with one value of 5. `my_var = (5)` is the integer "5".
 
 ## Loops - Doing the Same Thing a Bunch of Times
 
