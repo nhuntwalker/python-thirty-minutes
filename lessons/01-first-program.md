@@ -776,9 +776,10 @@ Lucky for you, I've got some exercises you can do to help reinforce your skills.
 
 ## Exercises
 
-Note: there are solutions to every exercise in the [exercises](../exercises) directory.
+Note: there are solutions to every exercise in the [solutions](../solutions) directory.
 
-Make sure to use a Python 3 virtual environment, but if you're going to be uploading your code to GitHub then **DO NOT COMMIT THE ENVIRONMENT DIRECTORY (ENV)!**
+Make sure to use a Python 3 virtual environment.
+If you're going to be pushing your code to GitHub then **DO NOT COMMIT THE ENVIRONMENT DIRECTORY (ENV)!**
 
 Don't worry if the code that you write isn't as elegant as possible.
 It doesn't have to be, as long as it fulfills the requirements.

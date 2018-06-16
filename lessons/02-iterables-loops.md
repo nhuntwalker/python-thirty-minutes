@@ -730,3 +730,40 @@ Here's the short of it:
 - Controlling the flow of loop logic
 
 ## Exercises
+
+Note: there are solutions to every exercise in the [solutions](../solutions) directory.
+
+Make sure to use a Python 3 virtual environment.
+If you're going to be pushing your code to GitHub then **DO NOT COMMIT THE ENVIRONMENT DIRECTORY (ENV)!**
+
+Don't worry if the code that you write isn't as elegant as possible.
+It doesn't have to be, as long as it fulfills the requirements.
+If you'd like some feedback on your code, fork this repository, work on a branch named `<your first name>-<exercise name>`, then submit a [pull request](https://github.com/nhuntwalker/python-thirty-minutes/pulls) to this repository from your fork.
+**I won't merge your work** but I will comment on the Pull Request as my time permits.
+
+1. **Evens and Odds**: Write a program that will generate 100 random numbers between 0 and 50. Create a dictionary with two keys, "evens" and "odds", each holding an empty `set`. For each number that gets generated, if it's even, add it to the "evens" `set`, and if it's odd add it to the "odds" `set`. Once all 100 numbers have been generated, `print` the dictionary to the console.
+2. **Blackjack**: Blackjack is a wonderful game, so let's model it in code. For single-deck blackjack, associate a card's number with a value according to the rules of [Blackjack](https://www.pagat.com/banking/blackjack.html#values). For example, a King "K" has the value of 10. For now, an Ace "A" will be 11. Each card should have an initial count of 4. Write a program that will draw two random cards from your deck for the dealer and another two cards from your deck for the player (use `random.choice` for this). Remember to update the count when the cards are drawn.
+    - As long as the combined value of the player's hand is less than 17, draw another card into their hand.
+    - After the player has drawn all their cards, the dealer will draw cards into their hand.
+    - If at any point the combined value of the player's hand is greater than or equal to 17, but also less than or equal to 21, stop drawing cards in to their hand. Compare the value of their hand to the value of the dealer, and if `player > dealer` tell the player what their hand was and that they won. If `player < dealer` tell the player what their hand was and that they lost. If `player == dealer`, tell the player what their hand was and that there was a tie.
+    - If at any point the combined value of the player's hand is over 21, stop drawing cards and tell the player that they've lost, showing them the value of their combined hand. For example:
+
+```
+You've drawn: K 6 K
+
+You have 26 in your hand. Bust! Try again!
+```
+
+If you really want to get fancy, instead of just showing them the value of the cards, `print` the cards to the console. Like so...
+
+```
+This was your hand:
+
+ ---  ---  ---
+|   ||   ||   |
+| K || 6 || K |
+|   ||   ||   |
+ ---  ---  ---
+
+You had 26. Bust! Try again!
+```
