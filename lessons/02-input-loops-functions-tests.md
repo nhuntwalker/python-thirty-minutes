@@ -449,7 +449,11 @@ Just some stuff I couldn't quite figure out where to place it.
 
 ## Loops - Doing the Same Thing a Bunch of Times
 
-As we saw before, the structure of a `for` loop in Python is as follows:
+As the subtitle says, whenever you want to perform the same operation or set of operations multiple times, a loop will be your tool.
+
+### For loops, for finite iteration
+
+We saw briefly in the previous lesson that the structure of a `for` loop in Python is as follows:
 
 ```python
 for <item> in <some iterable thing>:
@@ -458,13 +462,264 @@ for <item> in <some iterable thing>:
     <really however much logic you want>
 ```
 
+- You must have the `for` and `in` keywords on your initializing line, as well as the colon `:` at the end.
+- You MUST indent your next line under the initial `for` loop line.
+[Standard Python convention](https://www.python.org/dev/peps/pep-0008/) says that it should be 4 spaces.
+Make it 4 spaces.
+- When you're done with your loop, unindent out to the same level as the left edge of "`for`". **There is no other way to end a for loop in Python**
 
+Now that we've talked about containers, we have plenty of things that we can iterate through to show *how* loops can work.
+For example, let's say that we have a list of foods and we want to take each one and print out that we love said food.
+If we were doing it the long, inefficient, unmaintainable clunky way, we might write...
+
+```python
+>>> foods = ["beets", "ice cream", "chocolate", "sushi", "blackberries", "avocadoes", "pomegranates", "brie", "bread", "salami"]
+>>> love_string = "hot damn do I love {}!"
+>>> print(love_string.format(foods[0]))
+hot damn do I love beets!
+>>> print(love_string.format(foods[1]))
+hot damn do I love ice cream!
+>>> print(love_string.format(foods[2]))
+hot damn do I love chocolate!
+>>> print(love_string.format(foods[3]))
+hot damn do I love sushi!
+>>> print(love_string.format(foods[4]))
+hot damn do I love blackberries!
+>>> print(love_string.format(foods[5]))
+hot damn do I love avocadoes!
+>>> print(love_string.format(foods[6]))
+hot damn do I love pomegranates!
+>>> print(love_string.format(foods[7]))
+hot damn do I love brie!
+>>> print(love_string.format(foods[8]))
+hot damn do I love bread!
+>>> print(love_string.format(foods[9]))
+hot damn do I love salami!
+```
+
+The code above is an atrocity.
+Seriously, not only is it tedious to write, but it's ugly to look at!
+It's so bad that I didn't even write it out manually--I USED A LOOP TO GENERATE THAT CODE BLOCK!
+
+Loops are for the lazy.
+Good programmers are lazy.
+Become lazy. Become a good programmer.
+
+All jokes aside, this brings us to one of the standard guidelines of writing in any programming language: as much as you can stand to avoid it, **DON'T REPEAT YOURSELF**.
+This of course has its nuances.
+Should you start rethinking your code if you wrote the same bit twice? Probably not.
+Three times? Maybe start thinking about it. Depends on the circumstance.
+Five times? Yeah, start rethinking your code.
+
+Instead of writing that same code 10, 100, or 1000 times in order to perform some operation, write it once and let the programming language do the heavy lifting.
+In this particular case we know we want to iterate 10 times--once for each food item in the list of foods.
+We set up our `for` loop like so:
+
+```python
+>>> foods = ["beets", "ice cream", "chocolate", "sushi", "blackberries", "avocadoes", "pomegranates", "brie", "bread", "salami"]
+>>> love_string = "hot damn do I love {}!"
+>>> for i in range(10):
+...     print(love_string.format(foods[i]))
+...
+hot damn do I love beets!
+hot damn do I love ice cream!
+hot damn do I love chocolate!
+hot damn do I love sushi!
+hot damn do I love blackberries!
+hot damn do I love avocadoes!
+hot damn do I love pomegranates!
+hot damn do I love brie!
+hot damn do I love bread!
+hot damn do I love salami!
+```
+
+Read it aloud, it'll make more sense that way:
+
+**for "i" in range(10)...** effectively means: create an iterable with the values 0 through 9. For each value, assign it to the variable `i`. Then...
+
+**print(love_string.format(foods[i]))**... print my `love_string`, substituting the item in the `foods` list at index `i` for the placeholder in my `love_string`.
+
+Does this mean "iterate 10 times and when you iterate perform this operation"? Yes, but it's only a strong implication.
+The code-to-english bit that I wrote above is what it really means.
+Let's see another example to see how this can differ.
+It's important to get the literal understanding of loops early.
+
+Instead of looking at indexes of the `foods` list, I can access each food item individually and just shove that in my `love_string`.
+Behold!
+
+```python
+>>> foods = ["beets", "ice cream", "chocolate", "sushi", "blackberries", "avocadoes", "pomegranates", "brie", "bread", "salami"]
+>>> love_string = "hot damn do I love {}!"
+>>> for food in foods:
+...    print(love_string.format(food))
+...
+hot damn do I love beets!
+hot damn do I love ice cream!
+hot damn do I love chocolate!
+hot damn do I love sushi!
+hot damn do I love blackberries!
+hot damn do I love avocadoes!
+hot damn do I love pomegranates!
+hot damn do I love brie!
+hot damn do I love bread!
+hot damn do I love salami!
+```
+
+How many times am I iterating?
+You know what, I have no idea (10, the answer is 10).
+I don't need to have an idea.
+I know that I want to **access every item in `foods`**, so I tell my `for` loop to access each one, one at a time, and assign that value to a variable named `food`.
+Then, in the context of my `for` loop, my `food` variable has the value of that one food item, and I can use it within my loop logic.
+
+Lists are easy pickings, but any of the containers that we saw above (tuples, sets, strings, dictionaries) can serve as the iterable that a `for` loop would need.
+My favorite examples involve dictionaries.
+
+Let's say I have a similar dictionary to the one that I built in the last section, but I have 5 keys instead of just 2.
+
+```python
+students = {
+  'first grade': ['Tonell', 'Zalinia', 'Aikira', 'Elaya', 'Zhaire'],
+  'second grade': ['Dominique', 'Hazell', 'Antwon', 'Dmitry'],
+  'third grade': ['Michael', 'Daniel', 'Bridget', 'James', 'Robert', 'Joshua'],
+  'fourth grade': ['Jack', 'Rodney', 'Melvin', 'Kirsten', 'Sara'],
+  'fifth grade': ['Sharon', 'Anna', 'Jared', 'Dawn']
+}
+```
+
+For every grade of students that I have, I want to print a nicely-formatted new line for that student's name.
+At the end of the day I just want a list of all my students' names.
+As with most programming things, there's a number of ways to accomplish this.
+Here's one with `for` loops:
+
+```python
+# try it!
+for grade_level in students:
+  for student in students[grade_level]:
+    print(student)
+```
+
+Ooh, double `for` loop!
+Yes, you CAN nest loops. Thanks for asking!
+
+So what's happening here?
+When you iterate over a dictionary, you're really only iterating over the keys.
+So the first loop is effectively accessing one key in the dictionary at a time.
+
+For each key (a string) that it accesses, it then uses that key on the dictionary to get the value associated iwth that key.
+In this case, that value is a list of names.
+Then for each name in the list of names, print that name.
+
+If you find that you want to iterate over the length of a container, but also want to have access to the indexes of that container (or want to artificially build indexes), you can do this in two ways.
+The classical way is:
+
+```python
+for i in range(len(my_container)):
+```
+
+Find the length of my container, build a range of numbers for the length of that container, and assign each value to `i`.
+
+The more maintainable, scalable way that you should pretty much choose from here on is
+
+```python
+for idx, item in enumerate(my_container):
+```
+
+For every `item` in my container, give me an index `idx` that it corresponds to if I were counting things.
+`enumerate` returns to you an object that, when iterated over, returns not one but TWO values at a time.
+So why not take those two values and assign them to two variables?
+As for why this is a scalable, better way, ask me when we get to **Python generators** later on.
+
+### While loops - Go until I say stop!
+
+The structure of a `while` loop is quite a bit simpler than that of a `for` loop.
+The flow of logic is essentially:
+
+1. Is some condition True?
+2. If the condition is True, run some logic
+3. Go back to 1.
+
+As long as that condition evaluates to True, the loop will continue.
+Let's see with an example.
+
+```python
+count = 0
+while count < 25:
+    print(f"The count is {count}")
+    count += 1
+```
+
+Assign the value of `0` to `count`.
+**As long as** the value of `count` is less than `25`, `print` the current value of `count`, then increment its value up by `1`.
+I'm emphasizing "as long as" here because that's how you should think about `while` loops—as long as that condition is true, the indented logic will run.
+
+`for` loops are for a finite number of iterations.
+`while` loops are for conditional iterations.
+`while` loops can go on infinitely, and `for` loops typically don't.
+
+### Stop and Go In Iteration
+
+If you find yourself in a position where you want to stop iterating in either one of these types of loops, you can use `break`.
+Let's consider a loop that tries to match a pre-determined number by drawing random numbers.
+
+```python
+import random
+
+the_number = 4
+n_iters = 0
+while True:
+    n_iters += 1
+    the_guess = random.randint(0, 10)
+    if the_guess == the_number:
+        print(f"The number was guessed after {n_iters} iterations")
+        break
+```
+
+In the above loop we iterate and guess a number from 0 to 10.
+If `the_guess` ends up matching `the_number`, print a message showing how many times it took, and then leave the loop with the `break` statement.
+Once the `break` statement is hit, we leave the loop.
+
+**NOTHING ELSE WITHIN THE LOOP HAPPENS AFTER A BREAK STATEMENT**.
+
+If there are nested loops, then the `break` statement only kills the innermost loop.
+So with this setup
+
+```python
+for character in 'abcd123':
+    if character.isnumeric():
+        num = int(character)
+        while num < 20:
+            if num % 3 == 0:
+                break
+            num *= 2
+    else:
+        print("This wasn't a number!")
+```
+
+The `for` loop will iterate over the `'abcd123'` string one character at a time.
+For every character, there will be a check to see if that character is numeric (i.e. is a number) with `.isnumeric()`.
+If it is, *as long as* the number is less than 20, check to see if it's evenly-divided by 3.
+If it is evenly-divided by 3, **_break out of the `while` loop_** and return to the `for` loop.
+If it isn't, then multiply it by 2 and continue through the `while` loop.
+
+The other loop-relevant keyword is `continue`, which tells the loop to stop with the current iteration at that line and go on to the next iteration in the loop.
+A loop written like this:
+
+```python
+while True:
+    print("This is the loop that doesn't end")
+    continue
+    print("This line will never get hit. Ever.")
+```
+
+Will go on infinitely and never hit the second `print` line.
+Each time `continue` is seen, the next iteration is started.
+If you were to run this code, you would see the line "This is the loop that doesn't end" go on forever, until you killed the process with `CTRL + C`.
 
 ## Functions - Saving Logic for Later
 
-## The Many Ways to Take User Input
 
-## Untested Code is Broken Code
+
+## The Many Ways to Take User Input
 
 ## Recap
 
