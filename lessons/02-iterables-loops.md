@@ -1,8 +1,8 @@
-# Chapter 2 - Iterables, Loops, Functions, and User Input
+# Chapter 2 - Iterables and Loops
 
 **Topics**
 
-- [Chapter 2 - Iterables, Loops, Functions, and User Input](#chapter-2---iterables--loops--functions--and-user-input)
+- [Chapter 2 - Iterables and Loops](#chapter-2---iterables-and-loops)
     - [Iterables - Collections of Things](#iterables---collections-of-things)
         - [Sequences](#sequences)
             - [Lists](#lists)
@@ -17,9 +17,6 @@
         - [For loops, for finite iteration](#for-loops-for-finite-iteration)
         - [While loops - Go until I say stop!](#while-loops---go-until-i-say-stop)
         - [Stop and Go In Iteration](#stop-and-go-in-iteration)
-    - [Functions - Saving Logic for Later](#functions---saving-logic-for-later)
-    - [The Many Ways to Take User Input](#the-many-ways-to-take-user-input)
-    - [Untested Code is Broken Code](#untested-code-is-broken-code)
     - [Recap](#recap)
     - [Exercises](#exercises)
 
@@ -719,12 +716,17 @@ Will go on infinitely and never hit the second `print` line.
 Each time `continue` is seen, the next iteration is started.
 If you were to run this code, you would see the line "This is the loop that doesn't end" go on forever, until you killed the process with `CTRL + C`.
 
-## Functions - Saving Logic for Later
-
-
-
-## The Many Ways to Take User Input
-
 ## Recap
+
+This lesson covered some important fundamentals in Python: data containers and iteration.
+Here's the short of it:
+
+- Creating lists and modifying the data that they hold
+- Creating tuples and strings, and why we can't modify them
+- Sets and only holding unique values
+- Dictionaries and their versatility
+- For loops and finite iteration
+- While loops and conditional iteration
+- Controlling the flow of loop logic
 
 ## Exercises
