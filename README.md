@@ -20,7 +20,7 @@ I am not the golden truth here, I'm just providing examples of how a program **_
 
 - Start going through [the lessons](./lessons)
 - Reference complete examples [from the notes](./from-notes)
-- Check out the solutions to the end-of-chapter [exercises](./exercises)
+- Check out the [solutions](./solutions) to the end-of-chapter exercises
 
 ## Attributions
 
@@ -29,7 +29,7 @@ Thanks are due to many.
 - [Cris Ewing](http://twitter.com/cewing) for teaching me better Python than I already knew, and showing me what teaching programming can look like
 - [Guido van Rossum](http://twitter.com/gvanrossum) for making Python in the first place and being awesome to me personally when he didn't know who I was
 - [Don Sheu](https://twitter.com/ulysseas) and [Alan Venzina](https://twitter.com/fancysandwiches) for showing me what an inclusive Python community that strives to always be a better version of itself can look like
-- [Hadiya Hope Crichlow](https://twitter.com/HopeCrichlow) for inspiring me to write the book with her very short attention span and need for programming.
+- [Hadiya Hope Crichlow](https://twitter.com/HopeCrichlow) for inspiring me to write the book with her very short attention span and need for programming lessons.
 
 ## References
 
