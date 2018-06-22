@@ -361,13 +361,243 @@ If we look at what `in_file` is, we see the following
 This doesn't look like the contents of the file yet because we haven't _read_ the file.
 All we've done is open the file for reading.
 
-If we want to actually read the file, there's 3 ways:
+If we want to actually *read* the file, there's 3 ways:
 
-- One line at a time, as a string
-- All lines at once, as one big string
-- All lines at once, each line as a string in a list
+- One line at a time from the top of the file, as a string with `in_file.readline()`
+- All lines at once, as one big string with `in_file.read()`
+- All lines at once, each line as a string in a list with `in_file.readlines()`
+
+A word of caution: even though we're about to read the entire file, **reading all lines in a file at once can be a prohibitively-slow procedure**.
+Imagine trying to read a 10GB text file all at once!
+
+While there are packages in the Python standard library that are specifically geared toward reading CSV files, we're going to parse this file manually into a list of dictionaries with some basic Python methods/functions.
+
+First let's read in all the data and check the first 5 lines.
+
+```python
+>>> file_data = in_file.readlines()
+>>> file_data[:5]
+['Joshua Lin,47,Georgia\n', 'Parker Montgomery,53,Georgia\n', 'Ronald Bradley,23,Georgia\n', 'Jasmine Robertson,55,Georgia\n', 'Samantha Carson,54,Georgia\n']
+```
+
+That looks like our data.
+
+Those two characters, `"\n"` at the end of every string are actually one character and are an example of **whitespace**.
+They signify that there's a new line in the string.
+We want to get rid of that.
+
+Strings have a method called `strip()` which will remove whitespace from the beginning and the end of the given string, but leave the whitespace within the string intact.
+We can see that if we try using it on a few strings.
+
+```python
+>>> for line in file_data[:5]:
+...     print(line.strip())
+...
+Joshua Lin,47,Georgia
+Parker Montgomery,53,Georgia
+Ronald Bradley,23,Georgia
+Jasmine Robertson,55,Georgia
+Samantha Carson,54,Georgia
+```
+
+Ok so we know how to get the excess space off of every line.
+Those commas in every line denote separations in data, also known as **delimiters**.
+What we need now is a way to separate those columns of data into individual strings.
+
+Strings have another method that's useful for processing called `split()`.
+If you pass a string into `split()` as an argument, that string will be...split...based on that string into a list of strings.
+
+```python
+>>> line = "Joshua Lin,47,Georgia"
+>>> line.split(',')
+['Joshua Lin', '47', 'Georgia']
+```
+
+If you call `split()` without an argument, it'll just split based on whitespaces.
+
+We can combine the `strip()` and `split()` methods to do two operations on one line:
+
+```python
+>>> for line in file_data[:5]:
+...     print(line.strip().split(','))
+...
+['Joshua Lin', '47', 'Georgia']
+['Parker Montgomery', '53', 'Georgia']
+['Ronald Bradley', '23', 'Georgia']
+['Jasmine Robertson', '55', 'Georgia']
+['Samantha Carson', '54', 'Georgia']
+```
+
+Why does this work?
+Well, `.strip()` is a function, and when it's called it returns a string.
+Specifically, it returns the result of removing whitespace from the left and right sides of the original string.
+Since the result is itself a string, you can call `.split()` on it to split that result.
+
+Let's wrap this up by rolling all this into a list of dictionaries.
+
+```python
+>>> def process_line(line: str) -> dict:
+...     """Assign values from lines of a data file to keys in a dictionary."""
+...     name, age, state = line.strip().split(',')
+...     result = {
+...         "name": name,
+...         "age": int(age),
+...         "state": state
+...     }
+...     return result
+...
+>>> people = []
+>>> for line in file_data[:5]:
+...     people.append(process_line(line))
+...
+>>> print(people)
+[{'name': 'Joshua Lin', 'age': 47, 'state': 'Georgia'}, {'name': 'Parker Montgomery', 'age': 53, 'state': 'Georgia'}, {'name': 'Ronald Bradley', 'age': 23, 'state': 'Georgia'}, {'name': 'Jasmine Robertson', 'age': 55, 'state': 'Georgia'}, {'name': 'Samantha Carson', 'age': 54, 'state': 'Georgia'}]
+```
+
+The `process_line` function takes what we had been doing in the `for` loop and turns it into a repeatable routine.
+Within, it takes the result of `line.strip().split(',')` and uses Python's multiple-assignment to assign the resulting 3 values to 3 variables.
+Note: you can only use multiple assignment if the number of variables on the left matches the number of values coming from the right.
+So, `a, b = 1, 2` will work.
+`a, b, c = 1, 2` will not, nor will `a, b = 1, 2, 3`.
+
+Finally, when you're done working with a file's contents, or at least don't have to read from the same file anymore, make sure to `close` the file.
+Keeping too many resources open at once can slow down your machine, and it can prevent modification of that file by other processes.
+
+Also it's just good to clean up after yourself.
+
+```python
+>>> in_file.close()
+```
+
+For a top-to-bottom view of how this code would look in a Python file, check out the `from-notes` directory [here](../from-notes/03-functions-input/people_parser.py).
 
 ### Input on Execution
+
+Oftentimes when running Python files from the command line, you'll see some syntax like
+
+```
+$ python <python filename> <arg1> <arg2>
+```
+
+This sort of execution works because there's code set to take in and handle those command line arguments.
+Let's see what this can look like.
+
+I want a program that'll do some math for me.
+I want to be able to tell it what type of operation to do (add, subtract, multiply, divide), and give it two numbers to act on.
+Then, it'll print the result for me.
+I'm going to call this program `math.py` and I want to be able to run it like `$python math.py multiply 4 5`.
+
+```python
+"""Do whatever math I want to do at a given point in time."""
+def add(num1: float, num2: float) -> float:
+    """Add two numbers."""
+    return num1 + num2
+
+def subtract(num1: float, num2: float) -> float:
+    """Subtract two numbers."""
+    return num1 - num2
+
+def multiply(num1: float, num2: float) -> float:
+    """Multiply two numbers."""
+    return num1 * num2
+
+def divide(num1: float, num2: float) -> float:
+    """Divide two numbers."""
+    return num1 / num2
+
+switchboard = {
+    'add': add,
+    'subtract': subtract,
+    'multiply': multiply,
+    'divide': divide
+}
+
+if __name__ == "__main__":
+    import sys
+    if len(sys.argv) == 1:
+        print("Run math.py in the following format: python math.py <operation> <number> <number>. The supported operations are 'multiply', 'divide', 'add', and 'subtract'.")
+        sys.exit()
+    elif len(sys.argv) < 4:
+        print("ERROR: You didn't provide enough arguments!")
+        sys.exit()
+    elif len(sys.argv) > 4:
+        print("ERROR: You provided too many arguments!")
+        sys.exit()
+
+    operation = sys.argv[1]
+    if operation not in switchboard:
+        print(f"ERROR: {operation} isn't a supported operation. Try 'multiply', 'divide', 'add', or 'subtract'")
+        sys.exit()
+
+    num1 = float(sys.argv[2])
+    num2 = float(sys.argv[3])
+
+    result = switchboard[operation](num1, num2)
+    print(f'Result: {result}')
+```
+
+The first few functions are the same regular functions we've seen a dozen times by now.
+The `switchboard` dictionary maps keys to values of the same name, each value being a function.
+In the same way that keys in a dictionary can point to strings, numbers, and lists, they can point functions too as functions are just another object.
+
+The newest thing is what's happening in this `if __name__ == "__main__"` conditional statement.
+In addition to the functions and variables you declare, your Python files also come with some prepopulated "special" variables, denoted by two underscores before and after the variable name.
+
+This particular special variable gets populated with a string that is the "name" of the file.
+If we were to import the `math` module, its `__name__` would be "math".
+However, if we run the file directly from the command line with `$ python math.py`, then it's the "main" program.
+In that situation, its "name" is "__main__".
+In short: **it's a signal that there's special code to be executed only when this file is run from the command line**.
+Let's focus in on that block.
+
+```python
+if __name__ == "__main__":
+    import sys
+    if len(sys.argv) == 1:
+        print("Run math.py in the following format: python math.py <operation> <number> <number>. The supported operations are 'multiply', 'divide', 'add', and 'subtract'.")
+        sys.exit()
+    elif len(sys.argv) < 4:
+        print("ERROR: You didn't provide enough arguments!")
+        sys.exit()
+    elif len(sys.argv) > 4:
+        print("ERROR: You provided too many arguments!")
+        sys.exit()
+
+    operation = sys.argv[1]
+    if operation not in switchboard:
+        print(f"ERROR: {operation} isn't a supported operation. Try 'multiply', 'divide', 'add', or 'subtract'")
+        sys.exit()
+
+    num1 = float(sys.argv[2])
+    num2 = float(sys.argv[3])
+
+    result = switchboard[operation](num1, num2)
+    print(f'Result: {result}')
+```
+
+In this particular case, *when `math.py` is run from the command line*, the `sys` package from the Python standard library is imported.
+The `sys` package is specifically for direct interaction with the Python interpreter.
+In this particular case, we're inspecting the arguments that were provided when the code was run with the `argv` property.
+
+If I run a Python file like so `$ python filename.py arg1 arg2 arg3`, then `sys.argv` will be populated like `['filename.py', 'arg1', 'arg2', 'arg3']`.
+The `sys.argv` property will always be a list, and it will always read the command line arguments as strings.
+It'll also always have at least 1 entry.
+
+According to the code block above, we first check to see if the user just tried to run `math.py` on its own.
+They may not know how to run the code, so we tell them how it's supposed to work.
+**Always make painfully obvious to your user how to use your codebase and its purpose.**
+You'll thank yourself when you return to your code 6 months later with no clue what it was about.
+
+After printing a message to the user, we call `sys.exit()`, which stops the execution of the current Python file and returns you to the command line.
+Then there's two more checks to make sure that the right number of arguments has been provided.
+
+Once the initial checks are done, we harvest the actual `<operation>` that the user provided.
+That'll be the first argument after the filename, and since the filename is in `sys.argv[0]`, the operation must be in `sys.argv[1]`.
+As soon as we get the operation we make sure it's a valid one.
+If it isn't, we inform and exit.
+
+If all the checks pass, we harvest the two numbers that were passed in, converting them to `floats`.
+We then use the provided `<operation>` argument to point to the actual function that executes that operation, pass in the two numbers as arguments to whatever function that is, and print the result.
 
 ### Input within the Program
 
