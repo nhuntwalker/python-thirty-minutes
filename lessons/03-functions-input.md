@@ -601,6 +601,68 @@ We then use the provided `<operation>` argument to point to the actual function 
 
 ### Input within the Program
 
+Just like you can take input from the command line, you can prompt the user for new input while the program is running.
+To do this, use the aptly-named built-in function, `input()`.
+
+Here's how `input()` works:
+
+1. In your code, set up a variable to receive the return value of the `input()` function
+2. Pass a string into `input()` that you want the user to see that prompts them for input
+3. User sees the prompt, types something, and hits `<Enter>`
+4. What user typed is then stored in a variable as a string
+
+Here's an example:
+
+```python
+>>> billie_jean = input('Billie Jean is not my: ')
+Billy Jean is not my: lover
+>>> print(billie_jean)
+lover
+```
+
+When you want a more verbose prompt, you'll find it useful to `print()` a message first, then use the `input()` line.
+
+A note: in Python 2 you'll find that `input` works differently. In Python 2, `raw_input` serves the same function as Python 3's `input`.
+There's still an `input` function in Python 2, but it'll take your input and evaluate it as if it was a variable or a value.
+Be careful!
+
 ## Recap
 
+Finally we've covered functions!
+Now we can start to write programs that actually DO things, and do them over and over again.
+Not only that, but we've talked about 3 different ways of handling user input.
+
+In the next lesson we'll talk about...
+
+- what it looks like when things go wrong
+- what to do when we encounter those situations 
+- how to write tests to ensure a robust codebase
+
 ## Exercises
+
+Note: there are solutions to every exercise in the [solutions](../solutions) directory.
+
+Make sure to use a Python 3 virtual environment.
+If you're going to be pushing your code to GitHub then **DO NOT COMMIT THE ENVIRONMENT DIRECTORY (ENV)!**
+
+Don't worry if the code that you write isn't as elegant as possible.
+It doesn't have to be, as long as it fulfills the requirements.
+If you'd like some feedback on your code, fork this repository, work on a branch named `<your first name>-<exercise name>`, then submit a [pull request](https://github.com/nhuntwalker/python-thirty-minutes/pulls) to this repository from your fork.
+**I won't merge your work** but I will comment on the Pull Request as my time permits.
+
+1. **Blackjack: Reloaded**: In the last lesson you started building out a blackjack game. Now refactor the code to include functions and add user input.
+    - When `blackjack.py` is run from the command line the user should input alongside the filename an integer from 1-10. Use that number to determine how many decks of cards they'll be playing through. Kill the program with an appropriate message if they provide anything but an integer from 1-10.
+    - Write a function called `build_deck` that'll use that initial number to construct the deck.
+    - Prompt the user for how much money they want to play with. The minimum bet will be $20, so their amount needs to be at least that much. If user inputs anything besides a number, print an appropriate error message and reprompt them for input. If they input a number less than 20, print an appropriate error and reprompt.
+    - Add a key to the `player` dictionary that represents how much money they have
+    - Prompt the user for how much they will bet for the next hand. If they can't cover the minimum bet, print an error and kill the program. If they try to bet more than they have, print an error and reprompt.
+    - Write a function called `deal_card` that takes in a dictionary representing the player or the dealer, and a dictionary representing a deck. The function will deal one card from the deck into their hand.
+    - Continue the game as long as there are cards in the deck or the player has money, starting each hand with a prompt for their bet and dealing two cards to each person
+    - The same card values and win/loss rules apply as before
+2. **Caribbean Restaurant Point of Sale**: Let's make a command line program that will act as the point of sale for a Caribbean restaurant. This one will have far less explicit direction of what to write, and more about what it should do. Think it through holistically
+    - When starting the program up, the user should be greeted by the restaurant and asked if they want to see the menu or just start ordering. The data file for the menu items is [here](../from-notes/03-function-inputs/data/restaurant_menu.csv)
+    - After seeing the menu, they should be asked what they'd like to order
+    - If what they order is on the menu, add it to their total order. If what they order isn't on the menu, tell them it isn't. Make their input case-insensitive by using [the ".lower()" method](https://www.tutorialspoint.com/python/string_lower.htm) of strings
+    - After ordering an item, the user should be asked if they want to order something else or check out.
+    - If the user checks out, print out a listing of everything they ordered, the subtotal of their order, the tax, and the grand total. You may also want to suggest tipping. Remember, you're working with money so make sure your output looks like money
+    - Along with a receipt, the user should be informed that their food will be ready in some amount of minutes. Then the program should exit.

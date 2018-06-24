@@ -25,23 +25,23 @@ switchboard = {"add": add, "subtract": subtract, "multiply": multiply, "divide":
 
 if __name__ == "__main__":
     import sys
-
-    if len(sys.argv) < 4:
+    if len(sys.argv) == 1:
+        print("Run math.py in the following format: python math.py <operation> <number> <number>. The supported operations are 'multiply', 'divide', 'add', and 'subtract'.")
+        sys.exit()
+    elif len(sys.argv) < 4:
         print("ERROR: You didn't provide enough arguments!")
-        sys.exit(1)
+        sys.exit()
     elif len(sys.argv) > 4:
         print("ERROR: You provided too many arguments!")
-        sys.exit(1)
+        sys.exit()
 
     operation = sys.argv[1]
     if operation not in switchboard:
-        print(
-            f"ERROR: {operation} isn't a supported operation. Try 'multiply', 'divide', 'add', or 'subtract'"
-        )
-        sys.exit(1)
+        print(f"ERROR: {operation} isn't a supported operation. Try 'multiply', 'divide', 'add', or 'subtract'")
+        sys.exit()
 
     num1 = float(sys.argv[2])
     num2 = float(sys.argv[3])
 
     result = switchboard[operation](num1, num2)
-    print(f"Result: {result}")
+    print(f'Result: {result}')
