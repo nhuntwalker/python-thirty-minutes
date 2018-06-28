@@ -42,7 +42,12 @@ I'm not talking about the part of your doc string that talks about what the vari
 That comes after the initial function's summary.
 
 The [Python style guide](https://www.python.org/dev/peps/pep-0008/) actually wants your "short summary" to be one line.
-After that short summary, you cna write whatever you want to help document your code.
+After that short summary, you can write whatever you want to help document your code.
+
+I'd like to reiterate a bit that might've gotten skimmed over above: **FUNCTIONS SHOULD BE SMALL AND DO ONE THING WELL**.
+In practice you're going to write bugs.
+It's inevitable; where there's code there are bugs.
+Writing small, focused functions makes it easier for you to diagnose where those bugs pop up.
 
 To actually use the function and execute the logic you've saved, you "call" the function.
 Calling the function involves typing out the name of the function, followed by parentheses.
@@ -653,12 +658,13 @@ If you'd like some feedback on your code, fork this repository, work on a branch
 1. **Blackjack: Reloaded**: In the last lesson you started building out a blackjack game. Now refactor the code to include functions and add user input.
     - When `blackjack.py` is run from the command line the user should input alongside the filename an integer from 1-10. Use that number to determine how many decks of cards they'll be playing through. Kill the program with an appropriate message if they provide anything but an integer from 1-10.
     - Write a function called `build_deck` that'll use that initial number to construct the deck.
-    - Prompt the user for how much money they want to play with. The minimum bet will be $20, so their amount needs to be at least that much. If user inputs anything besides a number, print an appropriate error message and reprompt them for input. If they input a number less than 20, print an appropriate error and reprompt.
+    - Explicitly prompt the user for how much money they want to play with. The minimum bet will be $20, so their amount needs to be at least that much. If user inputs anything besides a number, print an appropriate error message and reprompt them for input. If they input a number less than 20, print an appropriate error and reprompt.
     - Add a key to the `player` dictionary that represents how much money they have
     - Prompt the user for how much they will bet for the next hand. If they can't cover the minimum bet, print an error and kill the program. If they try to bet more than they have, print an error and reprompt.
-    - Write a function called `deal_card` that takes in a dictionary representing the player or the dealer, and a dictionary representing a deck. The function will deal one card from the deck into their hand.
+    - Write a function called `deal_card` that takes in a dictionary representing the player or the dealer,  a dictionary representing a deck, and optionally a boolean that says whether this is the initial deal or not for a hand (default: True). The function will deal one card from the deck at random into their hand. If it's not the initial deal, print what card just got dealt.
+    - After the initial deal, show the user their hand, then ask if they'd like to "hit" (get dealt another card) or "stay" (take no more cards). This should be case-insensitive. If the user types anything besides some variation of "hit" or "stay", print an error and reprompt
+    - The same card values and win/loss rules apply as before. If the player wins, they double their bet. If not, they lose their bet.
     - Continue the game as long as there are cards in the deck or the player has money, starting each hand with a prompt for their bet and dealing two cards to each person
-    - The same card values and win/loss rules apply as before
 2. **Caribbean Restaurant Point of Sale**: Let's make a command line program that will act as the point of sale for a Caribbean restaurant. This one will have far less explicit direction of what to write, and more about what it should do. Think it through holistically
     - When starting the program up, the user should be greeted by the restaurant and asked if they want to see the menu or just start ordering. The data file for the menu items is [here](../from-notes/03-function-inputs/data/restaurant_menu.csv)
     - After seeing the menu, they should be asked what they'd like to order
