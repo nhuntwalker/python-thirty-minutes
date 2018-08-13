@@ -665,6 +665,7 @@ If you'd like some feedback on your code, fork this repository, work on a branch
     - After the initial deal, show the user their hand, then ask if they'd like to "hit" (get dealt another card) or "stay" (take no more cards). This should be case-insensitive. If the user types anything besides some variation of "hit" or "stay", print an error and reprompt
     - The same card values and win/loss rules apply as before. If the player wins, they double their bet. If not, they lose their bet.
     - Continue the game as long as there are cards in the deck or the player has money, starting each hand with a prompt for their bet and dealing two cards to each person
+    - Feel free to include any other functions that you feel might be useful but aren't mentioned here.
 2. **Caribbean Restaurant Point of Sale**: Let's make a command line program that will act as the point of sale for a Caribbean restaurant. This one will have far less explicit direction of what to write, and more about what it should do. Think it through holistically
     - When starting the program up, the user should be greeted by the restaurant and asked if they want to see the menu or just start ordering. The data file for the menu items is [here](../from-notes/03-function-inputs/data/restaurant_menu.csv)
     - After seeing the menu, they should be asked what they'd like to order
