@@ -640,8 +640,7 @@ Not only that, but we've talked about 3 different ways of handling user input.
 In the next lesson we'll talk about...
 
 - what it looks like when things go wrong
-- what to do when we encounter those situations 
-- how to write tests to ensure a robust codebase
+- what to do when we encounter those situations
 
 ## Exercises
 
