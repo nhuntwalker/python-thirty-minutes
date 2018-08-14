@@ -21,3 +21,7 @@ These are going to be books and websites that either inspired me to create an id
 7. [Stack Overflow: Why should I close files in Python?](https://stackoverflow.com/questions/25070854/why-should-i-close-files-in-python)
 8. [Command line arguments (sys.argv)](http://www.pythonforbeginners.com/argv/more-fun-with-sys-argv)
 9. [Stack Overflow: What does if __name__ == “__main__”: do?](https://stackoverflow.com/questions/419163/what-does-if-name-main-do)
+
+## Chapter 4
+
+1. [Errors and Exceptions](https://docs.python.org/3/tutorial/errors.html)
